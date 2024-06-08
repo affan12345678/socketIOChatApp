@@ -28,7 +28,7 @@ app.get("/:room", (req, res) => {
   if (rooms[req.params.room] == null) {
     return res.redirect("/");
   }
-  res.render("room", { room: req.params.room });
+  res.render("chat", { room: req.params.room });
 });
 
 server.listen(3000);
