@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io("http://localhost:3000");
 const messageInput = document.getElementById("message-input");
 const messageForm = document.getElementById("message-form");
 const chatHistoryContainer = document.getElementById("chat-history");
@@ -10,8 +10,6 @@ if (messageForm != null) {
   const userName =
     (rememberMe && (localStorage.getItem("socket-id") || prompt("name"))) ||
     prompt("name");
-
-  // const userName = localStorage.getItem("socket-id") || prompt("name");
 
   rememberMe && localStorage.setItem("socket-id", userName);
   socket.emit("new-user", roomName, userName);
@@ -28,19 +26,19 @@ if (messageForm != null) {
   }
 
   function updateChatHistory(data, fromServer = false) {
-    //set fromServer in server.js
     if (!fromServer) {
       const userMessageElement = document.createElement("p");
 
       if (data.name && data.message) {
         userMessageElement.innerHTML = `${data.name} said: ${data.message}`;
-        userMessageElement.classList.add("incoming-message");
+        userMessageElement.classList.add("sent");
         chatHistoryContainer.append(userMessageElement);
         return;
       } else {
         userMessageElement.innerHTML = data;
-        userMessageElement.classList.add("outgoing-message");
+        userMessageElement.classList.add("received");
         chatHistoryContainer.append(userMessageElement);
+        return;
       }
       // userMessageElement.innerHTML =
       //   data.name && data.message ? `${data.name} said: ${data.message}` : data;
@@ -51,6 +49,7 @@ if (messageForm != null) {
       serverMessageElement.innerHTML = data;
       serverMessageElement.classList.add("server-message");
       chatHistoryContainer.append(serverMessageElement);
+      return;
     }
   }
 }
@@ -77,3 +76,7 @@ socket.on("room-deleted", (room) => {
 socket.on("new-user-connected", updateChatHistory);
 socket.on("user-message", updateChatHistory);
 socket.on("user-disconnected", updateChatHistory);
+socket.on("error", (errorData) => {
+  //do something
+  console.log(errorData);
+});
