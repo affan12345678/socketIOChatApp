@@ -28,7 +28,7 @@ app.get("/:room", (req, res) => {
   if (rooms[req.params.room] == null) {
     return res.redirect("/");
   }
-  res.render("chat", { room: req.params.room });
+  res.render("chat", { room: req.params.room, rooms: rooms });
 });
 
 server.listen(3000);
@@ -67,7 +67,7 @@ io.on("connection", (socket) => {
     const userRooms = getUserRooms(socket);
     userRooms.forEach((room) => {
       const message = `${rooms[room].users[socket.id].name} left the chat`;
-      socket.to(room).emit("user-disconnected", message);
+      socket.to(room).emit("user-disconnected", message, true);
       delete rooms[room].users[socket.id];
 
       // Check if the room is empty and delete it

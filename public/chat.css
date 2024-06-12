@@ -1,5 +1,44 @@
+@media (min-width: 768px) {
+  :root {
+    --breadcrumb-divider: "";
+  }
 
+  .w-widescreen-25 {
+    width: 25%;
+    /* max-width: 25%; */
+    padding-inline: 0;
+  }
 
-/* .incoming-message {
+  .w-widescreen-85 {
+    width: 85%;
+  }
+}
 
-} */
+@media (max-width: 768px) {
+  :root {
+    --breadcrumb-divider: "|";
+  }
+
+  .widescreen-offcanvas-header {
+    display: none;
+  }
+
+  .mobile-fixed {
+    position: fixed !important;
+    bottom: 10px;
+    width: 100% !important;
+    padding: 0 0.5rem;
+  }
+
+  .mobile-chat-history {
+    margin-bottom: 3rem;
+  }
+}
+
+.received,
+.sent {
+  max-width: 70%;
+  flex-wrap: wrap;
+  height: auto;
+  word-break: normal;
+}
