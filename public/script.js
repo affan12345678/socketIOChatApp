@@ -1,4 +1,4 @@
-const socket = io("http://localhost:3000");
+const socket = io();
 const messageInput = document.getElementById("message-input");
 const messageForm = document.getElementById("message-form");
 const chatHistoryContainer = document.getElementById("chat-history");
@@ -50,6 +50,9 @@ if (messageForm != null) {
           userNameElement.innerText = `${data.name}`;
           chatHistoryContainer.append(userMessageElement);
           chatHistoryContainer.append(userNameElement);
+          chatHistoryContainer.lastChild.scrollIntoView({
+            behaviour: "smooth",
+          });
           return;
         } else {
           const userNameElement = document.createElement("span");
@@ -57,6 +60,9 @@ if (messageForm != null) {
           userNameElement.innerText = `${data.name}`;
           chatHistoryContainer.append(userMessageElement);
           chatHistoryContainer.append(userNameElement);
+          chatHistoryContainer.lastChild.scrollIntoView({
+            behaviour: "smooth",
+          });
           return;
         }
       } else {
@@ -70,41 +76,33 @@ if (messageForm != null) {
           "rounded"
         );
         chatHistoryContainer.append(userMessageElement);
+        chatHistoryContainer.lastChild.scrollIntoView({ behaviour: "smooth" });
         return;
       }
-      // userMessageElement.innerHTML =
-      //   data.name && data.message ? `${data.name} said: ${data.message}` : data;
-      // chatHistoryContainer.append(userMessageElement);
     }
     if (fromServer) {
       const serverMessageElement = document.createElement("p");
       serverMessageElement.innerHTML = data;
       serverMessageElement.classList.add("server-message", "mx-auto");
       chatHistoryContainer.append(serverMessageElement);
+      chatHistoryContainer.lastChild.scrollIntoView({ behaviour: "smooth" });
       return;
     }
   }
 }
 
-/*
-<button type="button"
-  class="list-group-item list-group-item-action d-flex gap-1 justify-content-between">
-  <span id="room-name" class="text-truncate">Lorem ipsum dolor sitconblanditiis?</span>
-  <a href="#">Join</a>
-</button>
-*/
-
 socket.on("room-created", (room) => {
   if (roomsContainer) {
-    const roomElement = document.createElement("div");
-    roomElement.classList = [
+    const roomElement = document.createElement("button");
+    roomElement.type = "button";
+    roomElement.id = room;
+    roomElement.classList.add(
       "list-group-item",
       "list-group-item-action",
       "d-flex",
       "gap-1",
-      "justify-content-between",
-    ];
-    roomElement.id = room;
+      "justify-content-between"
+    );
     const roomNameElement = document.createElement("span");
     roomNameElement.classList.add("text-truncate");
     roomNameElement.innerText = room;
@@ -120,7 +118,8 @@ socket.on("room-created", (room) => {
 });
 socket.on("room-deleted", (room) => {
   if (roomsContainer) {
-    roomsContainer.querySelector(`#${room}`).remove();
+    const roomElement = roomsContainer.querySelector(`#${room}`);
+    roomElement.remove();
   }
 });
 

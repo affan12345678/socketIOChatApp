@@ -1,0 +1,39 @@
+:root {
+  --top-height: 30vh;
+}
+
+#top {
+  height: var(--top-height);
+}
+
+#bottom {
+  max-height: calc(100vh - var(--top-height));
+  min-height: calc(100vh - var(--top-height));
+}
+
+#rooms-list {
+  width: 100%;
+}
+
+#form {
+  width: 100%;
+}
+
+#bottom::-webkit-scrollbar {
+  width: 0;
+}
+
+@media (min-width: 576px) {
+  :root {
+    --top-height: 30vh;
+    --bottom-margin: 0rem;
+  }
+
+  #rooms-list {
+    width: 55%;
+  }
+
+  #form {
+    width: 55%;
+  }
+}

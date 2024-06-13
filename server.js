@@ -4,6 +4,7 @@ const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
+const PORT = process.env.PORT;
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -31,7 +32,7 @@ app.get("/:room", (req, res) => {
   res.render("chat", { room: req.params.room, rooms: rooms });
 });
 
-server.listen(3000);
+server.listen(PORT || 3000);
 
 io.on("connection", (socket) => {
   socket.on("new-user", (room, userName) => {
