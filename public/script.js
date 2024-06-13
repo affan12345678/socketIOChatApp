@@ -41,8 +41,6 @@ if (messageForm != null) {
         );
         userMessage.classList.add("px-3", "py-2", "bg-primary", "rounded");
         userMessageElement.append(userMessage);
-        // userMessageElement.innerHTML = `${data.name}: ${data.message}`;
-
         if (chatHistoryContainer.lastChild.id === data.name) {
           chatHistoryContainer.lastChild.remove();
           const userNameElement = document.createElement("span");
