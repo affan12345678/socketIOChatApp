@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const rooms = {};
 
-app.get("/home", (req, res) => {
+app.get("/", (req, res) => {
   res.render("index", { rooms: rooms });
   // Object.keys(rooms).forEach((room) => {
   //   let noOfUsers = Object.keys(rooms[room][Object.keys(rooms[room])]).length;
