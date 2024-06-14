@@ -77,7 +77,6 @@ io.on("connection", (socket) => {
       delete rooms[room].users[socket.id];
       io.emit("updateRooms", rooms);
 
-      // Check if the room is empty and delete it
       if (Object.keys(rooms[room].users).length === 0) {
         delete rooms[room];
         io.emit("room-deleted", room);
