@@ -33,9 +33,14 @@
                     <span class="text-truncate">
                         <%= room %>
                     </span>
-                    <a href="/<%= room %>">Join</a>
+                    <div class="d-flex px-1 gap-3 align-items-center">
+                        <span id="no-of-users-in-<%= room  %>" class="badge text-bg-secondary">
+                            <%= Object.keys(rooms[room][Object.keys(rooms[room])]).length %>
+                        </span>
+                        <a href="/<%= room %>">Join</a>
+                    </div>
                 </button>
-                <% }); %>
+            <% }); %>
         </div>
     </div>
 

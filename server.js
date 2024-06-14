@@ -12,8 +12,12 @@ app.use(express.urlencoded({ extended: true }));
 
 const rooms = {};
 
-app.get("/", (req, res) => {
+app.get("/home", (req, res) => {
   res.render("index", { rooms: rooms });
+  // Object.keys(rooms).forEach((room) => {
+  //   let noOfUsers = Object.keys(rooms[room][Object.keys(rooms[room])]).length;
+  //   console.log(room, ":", noOfUsers);
+  // });
 });
 
 app.post("/room", (req, res) => {
@@ -29,7 +33,7 @@ app.get("/:room", (req, res) => {
   if (rooms[req.params.room] == null) {
     return res.redirect("/");
   }
-  res.render("chat", { room: req.params.room, rooms: rooms });
+  res.render("chat", { currentRoom: req.params.room, rooms: rooms });
 });
 
 server.listen(PORT || 3000);
@@ -53,6 +57,7 @@ io.on("connection", (socket) => {
         `${userName} joined the chat`,
         (fromServer = true)
       );
+    io.emit("updateRooms", rooms);
   });
 
   socket.on("user-message", (room, message) => {
@@ -70,6 +75,7 @@ io.on("connection", (socket) => {
       const message = `${rooms[room].users[socket.id].name} left the chat`;
       socket.to(room).emit("user-disconnected", message, true);
       delete rooms[room].users[socket.id];
+      io.emit("updateRooms", rooms);
 
       // Check if the room is empty and delete it
       if (Object.keys(rooms[room].users).length === 0) {

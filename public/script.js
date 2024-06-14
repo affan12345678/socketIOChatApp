@@ -99,18 +99,27 @@ socket.on("room-created", (room) => {
       "list-group-item-action",
       "d-flex",
       "gap-1",
-      "justify-content-between"
+      "justify-content-between",
+      "px-2"
     );
     const roomNameElement = document.createElement("span");
     roomNameElement.classList.add("text-truncate");
     roomNameElement.innerText = room;
+
+    const div = document.createElement("div");
+    div.classList.add("d-flex", "px-1", "gap-3", "align-items-center");
+
+    const noOfUsersElement = document.createElement("span");
+    noOfUsersElement.classList.add("badge", "text-bg-secondary");
+    noOfUsersElement.id = `no-of-users-in-${room}`;
 
     const roomLink = document.createElement("a");
     roomLink.href = `/${room}`;
     roomLink.innerHTML = "Join";
 
     roomElement.append(roomNameElement);
-    roomElement.append(roomLink);
+    div.append(noOfUsersElement, roomLink);
+    roomElement.append(div);
     roomsContainer.append(roomElement);
   }
 });
@@ -127,6 +136,14 @@ socket.on("user-disconnected", updateChatHistory);
 socket.on("error", (errorData) => {
   //handle error
   console.log(errorData);
+});
+socket.on("updateRooms", (rooms) => {
+  Object.keys(rooms).forEach((room) => {
+    if (roomsContainer.querySelector(`#no-of-users-in-${room}`)) {
+      roomsContainer.querySelector(`#no-of-users-in-${room}`).innerText =
+        Object.keys(rooms[room][Object.keys(rooms[room])]).length;
+    }
+  });
 });
 
 const toggleTheme = () => {
