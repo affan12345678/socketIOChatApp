@@ -1,5 +1,5 @@
 
-* {
+html {
   scroll-behavior: smooth;
 }
 
@@ -36,7 +36,7 @@
   }
 
   .mobile-chat-history {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 }
 

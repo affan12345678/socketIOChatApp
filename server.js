@@ -14,10 +14,6 @@ const rooms = {};
 
 app.get("/", (req, res) => {
   res.render("index", { rooms: rooms });
-  // Object.keys(rooms).forEach((room) => {
-  //   let noOfUsers = Object.keys(rooms[room][Object.keys(rooms[room])]).length;
-  //   console.log(room, ":", noOfUsers);
-  // });
 });
 
 app.post("/room", (req, res) => {
@@ -48,7 +44,10 @@ io.on("connection", (socket) => {
     if (!userName) {
       userName = generateRandomName();
     }
-    rooms[room].users[socket.id] = { name: userName };
+    userName = userName.length <= 25 ? userName : userName.slice(0, 25);
+    rooms[room].users[socket.id] = {
+      name: userName,
+    };
     socket.join(room);
     socket.broadcast
       .to(room)

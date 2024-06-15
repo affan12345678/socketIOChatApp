@@ -23,6 +23,9 @@ if (messageForm != null) {
     updateChatHistory(`${message}`);
     socket.emit("user-message", roomName, message);
     messageInput.value = "";
+    chatHistoryContainer.lastChild.scrollIntoView({
+      behaviour: "smooth",
+    });
   }
 
   function updateChatHistory(data, fromServer = false) {
@@ -55,6 +58,7 @@ if (messageForm != null) {
         } else {
           const userNameElement = document.createElement("span");
           userNameElement.id = data.name;
+          userNameElement.classList.add("align-self-start", "mb-3");
           userNameElement.innerText = `${data.name}`;
           chatHistoryContainer.append(userMessageElement);
           chatHistoryContainer.append(userNameElement);
@@ -81,7 +85,7 @@ if (messageForm != null) {
     if (fromServer) {
       const serverMessageElement = document.createElement("p");
       serverMessageElement.innerHTML = data;
-      serverMessageElement.classList.add("server-message", "mx-auto");
+      serverMessageElement.classList.add("server-message", "mx-auto", "mb-3");
       chatHistoryContainer.append(serverMessageElement);
       chatHistoryContainer.lastChild.scrollIntoView({ behaviour: "smooth" });
       return;
