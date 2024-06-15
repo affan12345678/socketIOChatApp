@@ -150,15 +150,26 @@ socket.on("updateRooms", (rooms) => {
   });
 });
 
-const toggleTheme = () => {
+const setTheme = (theme) => {
   const htmlElement = document.querySelector("html");
   const currentTheme = htmlElement.getAttribute("data-bs-theme");
-  const newTheme = currentTheme === "dark" ? "light" : "dark";
-  htmlElement.setAttribute("data-bs-theme", newTheme);
-  localStorage.setItem("chat-app-theme-preference", newTheme);
+  if (currentTheme === theme) return;
+  htmlElement.setAttribute("data-bs-theme", theme);
+  document.querySelector(`#light-theme-button`).classList.remove("active") ||
+    document
+      .querySelector(`#${currentTheme}-theme-button`)
+      ?.classList.remove("active");
+  document.querySelector(`#${theme}-theme-button`).classList.add("active");
+  document.querySelector(`#theme-dd-toggle`).innerText = `${theme}`;
+  localStorage.setItem("chat-app-theme-preference", theme);
 };
 
 const savedTheme = localStorage.getItem("chat-app-theme-preference");
 if (savedTheme) {
   document.querySelector("html").setAttribute("data-bs-theme", savedTheme);
+  document.querySelector(`#${savedTheme}-theme-button`).classList.add("active");
+  document.querySelector(`#theme-dd-toggle`).innerText = `${savedTheme}`;
+} else {
+  document.querySelector(`#light-theme-button`).classList.add("active");
+  document.querySelector(`#theme-dd-toggle`).innerText = "light";
 }

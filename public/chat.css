@@ -1,4 +1,3 @@
-
 html {
   scroll-behavior: smooth;
 }
@@ -10,7 +9,6 @@ html {
 
   .w-widescreen-25 {
     width: 25%;
-    /* max-width: 25%; */
     padding-inline: 0;
   }
 

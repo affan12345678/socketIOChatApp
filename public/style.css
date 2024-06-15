@@ -1,5 +1,6 @@
 :root {
   --top-height: 30vh;
+  --nav-height: 4rem;
 }
 
 #top {
@@ -7,8 +8,8 @@
 }
 
 #bottom {
-  max-height: calc(100vh - var(--top-height));
-  min-height: calc(100vh - var(--top-height));
+  max-height: calc(100vh - (var(--top-height) + var(--nav-height)));
+  min-height: calc(100vh - (var(--top-height) + var(--nav-height)));
 }
 
 #rooms-list {
@@ -30,10 +31,10 @@
   }
 
   #rooms-list {
-    width: 55%;
+    width: 60%;
   }
 
   #form {
-    width: 55%;
+    width: 60%;
   }
 }
