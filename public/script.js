@@ -8,10 +8,11 @@ if (messageForm != null) {
   let rememberMe = false;
 
   const userName =
-    (rememberMe && (localStorage.getItem("socket-id") || prompt("name"))) ||
+    (rememberMe &&
+      (localStorage.getItem("Chatrooms-username") || prompt("name"))) ||
     prompt("name");
 
-  rememberMe && localStorage.setItem("socket-id", userName);
+  rememberMe && localStorage.setItem("Chatrooms-username", userName);
   socket.emit("new-user", roomName, userName);
 
   messageForm.addEventListener("submit", sendMessage);
@@ -42,7 +43,7 @@ if (messageForm != null) {
           "d-flex",
           "flex-column"
         );
-        userMessage.classList.add("px-3", "py-2", "bg-primary", "rounded");
+        userMessage.classList.add("px-3", "py-2", "bg-primary", "rounded-5");
         userMessageElement.append(userMessage);
         if (chatHistoryContainer.lastChild.id === data.name) {
           chatHistoryContainer.lastChild.remove();
@@ -58,7 +59,7 @@ if (messageForm != null) {
         } else {
           const userNameElement = document.createElement("span");
           userNameElement.id = data.name;
-          userNameElement.classList.add("align-self-start", "mb-3");
+          userNameElement.classList.add("align-self-start", "mb-1");
           userNameElement.innerText = `${data.name}`;
           chatHistoryContainer.append(userMessageElement);
           chatHistoryContainer.append(userNameElement);
@@ -72,10 +73,11 @@ if (messageForm != null) {
         userMessageElement.classList.add(
           "sent",
           "ms-auto",
+          "my-1",
           "px-3",
           "py-2",
           "bg-primary",
-          "rounded"
+          "rounded-5"
         );
         chatHistoryContainer.append(userMessageElement);
         chatHistoryContainer.lastChild.scrollIntoView({ behaviour: "smooth" });
@@ -85,7 +87,12 @@ if (messageForm != null) {
     if (fromServer) {
       const serverMessageElement = document.createElement("p");
       serverMessageElement.innerHTML = data;
-      serverMessageElement.classList.add("server-message", "mx-auto", "mb-3");
+      serverMessageElement.classList.add(
+        "server-message",
+        "mx-auto",
+        "my-1",
+        "text-secondary-emphasis"
+      );
       chatHistoryContainer.append(serverMessageElement);
       chatHistoryContainer.lastChild.scrollIntoView({ behaviour: "smooth" });
       return;

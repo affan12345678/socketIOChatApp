@@ -2,16 +2,18 @@ html {
   scroll-behavior: smooth;
 }
 
+:root {
+  --nav-height: 3.5rem;
+}
+
 @media (min-width: 768px) {
   :root {
     --breadcrumb-divider: "";
   }
-
   .w-widescreen-25 {
     width: 25%;
     padding-inline: 0;
   }
-
   .w-widescreen-85 {
     width: 85%;
   }
@@ -25,6 +27,12 @@ html {
   .widescreen-offcanvas-header {
     display: none;
   }
+  .mobile-fixed-top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
 
   .mobile-fixed {
     position: fixed !important;
@@ -34,7 +42,8 @@ html {
   }
 
   .mobile-chat-history {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    margin-top: var(--nav-height);
   }
 }
 
