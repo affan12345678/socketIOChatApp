@@ -3,7 +3,9 @@ html {
 }
 
 :root {
-  --nav-height: 3.5rem;
+  --nav-height: 4rem;
+  --form-height: 2rem;
+  --form-margin-bottom: 1rem;
 }
 
 @media (min-width: 768px) {
@@ -31,18 +33,21 @@ html {
     position: fixed;
     top: 0;
     width: 100% !important;
+    height: var(--nav-height);
   }
 
   .mobile-fixed {
     position: fixed !important;
-    bottom: 10px;
+    bottom: var(--form-margin-bottom);
     width: 100% !important;
     padding: 0 0.5rem;
+    height: var(--form-height);
   }
 
   .mobile-chat-history {
-    margin-bottom: 2.5rem;
+    margin-bottom: calc(var(--form-height) + var(--form-margin-bottom));
     margin-top: var(--nav-height);
+    height: calc(100vh - (var(--nav-height) + var(--form-height)));
   }
 }
 
