@@ -54,9 +54,10 @@
         </div>
     </div>
 
-    <div class="d-flex flex-column position-relative w-widescreen-85 pb-2" style="height: 100%;">
+    <div id="chat" class="d-flex flex-column position-relative w-widescreen-85">
 
-        <nav class="navbar mobile-fixed-top bg-body-secondary container-fluid border-bottom">
+        <nav
+            class="navbar mobile-fixed-top position-absolute top-0 width-100 bg-body-secondary container-fluid border-bottom">
             <div class="container-fluid align-items-center justify-content-between"
                 style="--bs-breadcrumb-divider: var(--breadcrumb-divider);" aria-label="breadcrumb">
                 <div class="navbar-brand">
@@ -86,17 +87,18 @@
         </nav>
 
         <div id="chat-history"
-            class="overflow-y-auto d-flex text-light flex-column flex-grow-1 p-3 mobile-chat-history">
+            class="overflow-y-auto d-flex text-light flex-column px-3 pb-3 mt-auto mobile-chat-history">
         </div>
 
-        <form id="message-form" action="" class="input-group justify-self-last mobile-fixed px-1">
+        <form id="message-form" action=""
+            class="input-group mobile-fixed-bottom position-absolute bottom-0 start-1 end-1 px-1">
             <input autocomplete="off" type="text" id="message-input" placeholder="Enter message" class="form-control"
                 aria-label="Text input with segmented dropdown button">
             <button id="send-message-button" type="submit" class="btn btn-primary">Send</button>
         </form>
 
     </div>
-    
+
     <div class="modal fade" id="settings" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

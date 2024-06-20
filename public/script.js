@@ -16,6 +16,13 @@ if (messageForm != null) {
   socket.emit("new-user", roomName, userName);
 
   messageForm.addEventListener("submit", sendMessage);
+  
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+  window.addEventListener("resize", () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  });
 
   function sendMessage(event) {
     event.preventDefault();
@@ -49,23 +56,30 @@ if (messageForm != null) {
           chatHistoryContainer.lastChild.remove();
           const userNameElement = document.createElement("span");
           userNameElement.id = data.name;
+          userNameElement.classList.add(
+            "align-self-start",
+            "mb-1",
+            "text-body-tertiary",
+            "fw-semibold"
+          );
           userNameElement.innerText = `${data.name}`;
           chatHistoryContainer.append(userMessageElement);
           chatHistoryContainer.append(userNameElement);
-          chatHistoryContainer.lastChild.scrollIntoView({
-            behaviour: "smooth",
-          });
+          chatHistoryContainer.scroll(0, chatHistoryContainer.scrollHeight)
           return;
         } else {
           const userNameElement = document.createElement("span");
           userNameElement.id = data.name;
-          userNameElement.classList.add("align-self-start", "mb-1");
+          userNameElement.classList.add(
+            "align-self-start",
+            "mb-1",
+            "text-body-tertiary",
+            "fw-semibold"
+          );
           userNameElement.innerText = `${data.name}`;
           chatHistoryContainer.append(userMessageElement);
           chatHistoryContainer.append(userNameElement);
-          chatHistoryContainer.lastChild.scrollIntoView({
-            behaviour: "smooth",
-          });
+          chatHistoryContainer.scroll(0, chatHistoryContainer.scrollHeight)
           return;
         }
       } else {
@@ -80,7 +94,7 @@ if (messageForm != null) {
           "rounded-5"
         );
         chatHistoryContainer.append(userMessageElement);
-        chatHistoryContainer.lastChild.scrollIntoView({ behaviour: "smooth" });
+        chatHistoryContainer.scroll(0, chatHistoryContainer.scrollHeight)
         return;
       }
     }
@@ -94,7 +108,7 @@ if (messageForm != null) {
         "text-secondary-emphasis"
       );
       chatHistoryContainer.append(serverMessageElement);
-      chatHistoryContainer.lastChild.scrollIntoView({ behaviour: "smooth" });
+      chatHistoryContainer.scroll(0, chatHistoryContainer.scrollHeight)
       return;
     }
   }

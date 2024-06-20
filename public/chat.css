@@ -19,8 +19,20 @@ html {
   .w-widescreen-85 {
     width: 85%;
   }
-}
 
+  #chat-history {
+    padding-top: 4rem;
+    margin-bottom: calc(var(--form-height) + var(--form-margin-bottom));
+  }
+  #message-form {
+    margin-bottom: var(--form-margin-bottom) !important;
+  }
+
+}
+  #chat {
+    height: 100dvh;
+    height: calc(var(--vh, 1vh) * 100);
+  }
 @media (max-width: 768px) {
   :root {
     --breadcrumb-divider: "|";
@@ -36,18 +48,17 @@ html {
     height: var(--nav-height);
   }
 
-  .mobile-fixed {
-    position: fixed !important;
-    bottom: var(--form-margin-bottom);
+  .mobile-fixed-bottom {
+    position: absolute;
+    bottom: 0;
     width: 100% !important;
-    padding: 0 0.5rem;
     height: var(--form-height);
+    margin-bottom: var(--form-margin-bottom) !important;
   }
 
   .mobile-chat-history {
+    padding-top: 5rem;
     margin-bottom: calc(var(--form-height) + var(--form-margin-bottom));
-    margin-top: var(--nav-height);
-    height: calc(100vh - (var(--nav-height) + var(--form-height)));
   }
 }
 
